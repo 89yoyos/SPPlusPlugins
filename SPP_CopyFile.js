@@ -22,8 +22,8 @@ $SP().registerPlugin('CopyFile', function(setup) {
 				operation:"CopyIntoItemsLocal",
 				webURL:setup.url,
 				properties:{
-				SourceUrl:setup.url+setup.source,
-				DestinationUrls:"<string>"+setup.url+setup.destination+"</string>"
+					SourceUrl:setup.url+setup.source,
+					DestinationUrls:"<string>"+setup.url+setup.destination+"</string>"
 				}
 			}).then(
 				function(result){
