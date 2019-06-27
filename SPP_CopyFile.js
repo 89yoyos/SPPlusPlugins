@@ -5,7 +5,6 @@ The prupose of this plugin is to extend SharePointPlus's capabilities. It makes 
 to allow duplicating files on the server.
 
 */
-
 $SP().registerPlugin('CopyFile', function(setup) {
 	// default values
 	var _this=this;
@@ -26,8 +25,18 @@ $SP().registerPlugin('CopyFile', function(setup) {
 					DestinationUrls:"<string>"+setup.url+setup.destination+"</string>"
 				}
 			}).then(
-				function(result){
-					prom_resolve(result);
+				function(data){
+					var res = data.getElementsByTagName('CopyResult');
+					if (res.length!=1){
+						prom_reject(res);
+					} else {
+						res = res[0];
+					}
+					if (res.getAttributeNode('ErrorCode').value != "Success") {
+						prom_reject(res);
+					} else {
+						prom_resolve(data);
+					}
 				}
 			);
 		} catch (e) {
